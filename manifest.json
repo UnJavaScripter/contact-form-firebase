@@ -1,0 +1,26 @@
+{
+    "short_name": "Vandelay Industries", 
+    "name": "Vandelay Industries - Te llevamos al infinito",
+     "icons": [
+      {
+        "src": "r_48.png",
+        "type": "image/png",
+        "sizes": "48x48"
+      },
+      {
+        "src": "r_96.png",
+        "type": "image/png",
+        "sizes": "96x96"
+      },
+      {
+        "src": "r_192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      }
+    ],
+    "display": "standalone",
+    "orientation": "portrait",
+    "theme_color": "#30465b",
+    "background_color": "#20364b",
+    "start_url": "/?origin=device_desktop"
+  }
