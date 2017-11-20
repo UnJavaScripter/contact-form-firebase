@@ -2,13 +2,24 @@ const contactForm = document.getElementById('contact-form');
 const logInButton = document.getElementById('log-in-button');
 const logOutButton = document.getElementById('log-out-button');
 
-checkUserState();
+const name_input  = document.getElementById('name');
+const email_input = document.getElementById('email');
+const phone_input = document.getElementById('phone');
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if(user) {
+        checkUserState(user);
+    }else {
+        firebase.auth().signInAnonymously();
+    }
+});
 
 contactForm.onsubmit = (e) => {
     e.preventDefault();
-
-
-    demo();
+    saveUserData().then(e => {
+        console.log('%cDatos almacenados exitosamente!', 'color:#fa1af1,background:#666');
+        demo();
+    });
 }
 
 
@@ -16,11 +27,11 @@ contactForm.onsubmit = (e) => {
     Firebase Login
 */
 
-function checkUserState() {
-    const user = firebase.auth().currentUser;
-    if (user) {
+function checkUserState(userObj) {
+    if (userObj && !userObj.isAnonymous) {
         logInButton.style.display = 'none';
         logOutButton.style.display = 'block';
+        fillUserForm(userObj);
     } else {
         logInButton.style.display = 'block';
         logOutButton.style.display = 'none';
@@ -37,7 +48,7 @@ function logInWithFirebase() {
         // The signed-in user info.
         const user = result.user;
         fillUserForm(user);
-        checkUserState();
+        checkUserState(userObj);
         // ...
       }).catch(function(error) {
         // Handle Errors here.
@@ -60,9 +71,6 @@ function logOutWithFirebase() {
 }
 
 function fillUserForm(userObj) {
-    const name_input  = document.getElementById('name');
-    const email_input = document.getElementById('email');
-    const phone_input = document.getElementById('phone');
 
     name_input.value = userObj.displayName || '';
     email_input.value = userObj.email || '';
@@ -72,6 +80,25 @@ function fillUserForm(userObj) {
 
 }
 
+
+/*
+    Store the user data into Firebase
+*/
+
+function saveUserData() {
+    const crypto = window.crypto || window.msCrypto;
+    const now = Date.now();
+    
+    const user = firebase.auth().currentUser;
+
+    return firebase.database().ref('customers/' + user.uid ).set({
+        name: name_input.value,
+        email: email_input.value,
+        phone: phone_input.value,
+        date: new Date(),
+        picture: user.photoURL || ''
+    });
+  }
 
 
 /* 

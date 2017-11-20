@@ -127,6 +127,7 @@ button {
 }
 .auth-button-container>button {
     cursor: pointer;
+    display: none;
 }
 
 .auth-button-container>button.log-in-button {
