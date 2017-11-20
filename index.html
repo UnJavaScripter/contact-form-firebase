@@ -26,6 +26,12 @@
         </div>
         <div class="contact-form-container">
             <div class="contact-form-header">Lo contactamos</div>
+            <div class="auth-button-container">
+                <button class="log-in-button" id="log-in-button" onclick="logInWithFirebase()">Iniciar sesión</button>
+            </div>
+            <div class="auth-button-container">
+                <button class="log-out-button" id="log-out-button" onclick="logOutWithFirebase()">Cerrar sesión</button>
+            </div>
             <form id="contact-form">
                 <div class="form-input">
                     <label for="name">Nombre</label>
@@ -47,6 +53,22 @@
     </section>
 
     <img src="./assets/r.png" id="r" class="vandelay-demo" alt="to the moon!">
+
+
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDCWB5Ay_auEbv_YwXUz6FX9PygpVG2Vgw",
+        authDomain: "vandelay-ind.firebaseapp.com",
+        databaseURL: "https://vandelay-ind.firebaseio.com",
+        projectId: "vandelay-ind",
+        storageBucket: "vandelay-ind.appspot.com",
+        messagingSenderId: "142266016884"
+      };
+      firebase.initializeApp(config);
+    </script>
+
     <script src="sw_registration.js"></script>
     <script src="main.js"></script>
 </body>
